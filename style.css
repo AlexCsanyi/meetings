@@ -1,0 +1,21 @@
+:root {
+  --main-text-color: #999;
+}
+
+body {
+  width: 100vw;
+  min-height: 100%;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+body,
+input,
+textarea,
+p {
+  font-size: 13px;
+  font-family: "Courier New", Courier, monospace;
+  color: var(--main-text-color);
+  line-height: 1.7;
+  font-weight: 300;
+}
