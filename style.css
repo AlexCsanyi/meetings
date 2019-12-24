@@ -1,12 +1,22 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   --main-text-color: #999;
+  --main-white-color: #fff;
+  --main-black-color: #000;
+  --decorative-color: #008e71;
 }
 
 body {
   width: 100vw;
   min-height: 100%;
   overflow-x: hidden;
-  margin: 0;
 }
 
 body,
@@ -18,4 +28,8 @@ p {
   color: var(--main-text-color);
   line-height: 1.7;
   font-weight: 300;
+}
+
+a {
+  text-decoration: none;
 }
