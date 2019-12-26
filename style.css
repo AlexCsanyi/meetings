@@ -23,6 +23,7 @@ third - 500: overlay
   --main-black-color: #000;
   --decorative-color: #008e71;
   --background-color: rgba(247, 241, 227, 1);
+  --main-transition: all 0.6s cubic-bezier(0.95, 0.05, 0.795, 0.035);
 }
 
 body {
@@ -96,9 +97,48 @@ header::before {
   transition: transform 0.6s cubic-bezier(0.95, 0.05, 0.795, 0.035);
 }
 
+.nav-list {
+  list-style: none;
+}
+
 .secondary-nav-list {
   padding-inline-start: 10px;
   list-style: none;
   border-left: 1px solid var(--main-black-color);
   margin: 1rem 0;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: var(--main-text-color);
+  font-size: 18px;
+}
+
+.secondary-nav-link {
+  color: var(--main-text-color);
+  font-size: 15px;
+}
+
+.social-icons {
+  margin-top: 10px;
+}
+
+.fab {
+  border: 1px solid var(--main-text-color);
+  border-radius: 50%;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 11px;
+  background-color: var(--main-white-color);
+  cursor: pointer;
+}
+
+.fab:hover {
+  color: var(--main-white-color);
+  background-color: var(--main-text-color);
 }
