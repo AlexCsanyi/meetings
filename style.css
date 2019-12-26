@@ -22,8 +22,8 @@ third - 500: overlay
   --main-white-color: #fff;
   --main-black-color: #000;
   --decorative-color: #008e71;
-  --background-color: rgba(247, 241, 227, 1);
-  --main-transition: all 0.6s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --background-color: rgba(247, 241, 227, 0.6);
+  --main-transition: all 0.6s ease-in-out;
 }
 
 body {
@@ -49,10 +49,9 @@ a {
 
 /* ----- END BASE ----- */
 /* ----- MENU ----- */
-
 .hamburger {
   position: fixed;
-  top: 3rem;
+  top: 4rem;
   left: 72px;
   cursor: pointer;
   z-index: 1000;
@@ -62,7 +61,7 @@ a {
   font-size: 1.5rem;
 }
 
-.fa-times::before {
+.hamburger .fa-times {
   display: none;
 }
 
@@ -85,15 +84,15 @@ header::before {
   top: 0;
   left: 0;
   height: 100vh;
-  width: 70vw;
-  background-color: var(--decorative-color);
+  width: 40vw;
+  background-color: var(--main-white-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 72px;
   padding-top: calc(36px * 4);
   z-index: 750;
-  /* transform: translateX(-100%); */
+  transform: translateX(-200%);
   transition: transform 0.6s cubic-bezier(0.95, 0.05, 0.795, 0.035);
 }
 
@@ -115,6 +114,12 @@ header::before {
 .nav-link {
   color: var(--main-text-color);
   font-size: 18px;
+  transition: var(--main-transition);
+}
+
+.nav-link:hover,
+.secondary-nav-link:hover {
+  color: var(--main-black-color);
 }
 
 .secondary-nav-link {
@@ -122,8 +127,17 @@ header::before {
   font-size: 15px;
 }
 
+.active {
+  color: var(--decorative-color);
+}
+
 .social-icons {
   margin-top: 10px;
+  display: flex;
+}
+
+.icon-link {
+  color: var(--main-text-color);
 }
 
 .fab {
@@ -136,9 +150,60 @@ header::before {
   padding: 11px;
   background-color: var(--main-white-color);
   cursor: pointer;
+  transition: var(--main-transition);
 }
 
 .fab:hover {
   color: var(--main-white-color);
   background-color: var(--main-text-color);
 }
+
+.fa-instagram {
+  margin-left: 5px;
+}
+
+/* ----- MENU END ----- */
+/* ----- HOME PAGE - MAIN ----- */
+.content {
+  text-align: center;
+  transform: translateX(0);
+  transition: transform 0.6s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+}
+
+.click .fa-times {
+  display: block;
+}
+
+.click .fa-bars {
+  display: none;
+}
+
+header.click::before {
+  transform: translate(0, 0);
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+
+.click .sidebar {
+  transform: translateX(0);
+}
+
+.click .content {
+  transform: translateX(40vw);
+}
+
+/* main::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  border: 36px solid white;
+  user-select: none;
+  pointer-events: none;
+  background-color: var(--background-color);
+} */
+
+/* ----- HOME PAGE - MAIN END ----- */
