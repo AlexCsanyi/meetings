@@ -195,5 +195,88 @@
 
       this.initEvents();
     }
+
+    initEvents() {
+      this.DOM.thumbs.forEach((thumb, pos) => {
+        thumb.addEventListener("click", () => {
+          this.current = pos;
+          this.showProject();
+        });
+      });
+
+      this.DOM.moreCtrl.addEventListener("click", () => {
+        if (!this.isGridHidden) return;
+        this.hideProject();
+      });
+
+      window.addEventListener("resize", () => {
+        winsize = { width: window.innerWidth, height: window.innerHeight };
+        if (this.isGridHidden) {
+          this.movable.forEach(item => {
+            Array.from(item.DOM.el.children).forEach(child => {
+              TweenMax.set(child, {
+                y:
+                  item.constructor.name === "Thumb"
+                    ? -1 * winsize.height - 30
+                    : -1 * winsize.height - 30 + child.OffsetHeight / 2
+              });
+            });
+          });
+        }
+      });
+    }
+
+    showProject() {
+      this.toggleProject("show");
+    }
+
+    hideProject() {
+      this.toggleProject('hide')
+    } 
+
+    toggleProject(action) {
+      if(this.isAnimating) return;
+      this.isAnimating = true;
+      this.isGridHidden = action === 'show';
+      allowTilt = !this.isGridHidden;
+      this.showRevealer().then(() => {
+        this.DOM.fullviewItems[this.current].style.opacity = this.isGridHidden ? 1 : 0;
+        this.DOM.fullview.style.opacity = this.isGridHidden ? 1 : 0;
+        this.DOM.fullview.style.pointerEvents = this.isGridHidden ? 'auto' : 'none';
+        this.hideRevealer(this.isGridHidden ? 'up' : 'down')
+        this.isAnimating = false;
+      })
+
+      this.movable.forEach(item => {
+        item.toggle(this.isGridHidden ? 'hide' : 'show')
+        item.DOM.el.style.pointerEvents = this.isGridHidden ? 'none' : 'auto';
+      })
+    }
+
+    showRevealer() {
+      return this.toggleRevealer('show')
+    }
+
+    hideRevealer(dir) {
+      return this.toggleRevealer('hide', dir);
+    }
+
+    toggleRevealer(action, dir) {
+      return new Promise((resolve, reject) => {
+        if(action === 'show') {
+          this.DOM.revealer.style.backgroundColor = this.movable[this.current].DOM.dataset.revealerColor
+        }
+
+        TweenMax.to( this.DOM.revealer, action === 'show' ? 1 : 1, {
+          ease: action === 'show' ? 'Quint.easeInOut' : 'Quint.easeOut',
+          y: action === 'show' ? '-100%' : dir === 'up' ? '-200%' : '0%',
+          onComplete: resolve
+        })
+      })
+    }
   }
+
+  let winsize = {width: window.innerWidth, height: window.innerHeight};
+  let allowTilt = true;
+  new Grid();
 }
