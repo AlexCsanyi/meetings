@@ -168,6 +168,8 @@ header::before {
   transform: translateX(0);
   transition: transform 0.6s cubic-bezier(0.95, 0.05, 0.795, 0.035);
   padding: 36px;
+  border: 36px solid white;
+  background-color: var(--background-color);
 }
 
 .click .fa-times {
@@ -191,20 +193,54 @@ header.click::before {
 .click .content {
   transform: translateX(40vw);
 }
+/* ----- HOME PAGE - MAIN END ----- */
+/* ----- HOME PAGE - GRID ----- */
 
-main::after {
+/* Page Loader */
+.js .loading::before {
   content: "";
-  display: block;
-  width: 100%;
-  height: 100vh;
-  left: 0;
+  position: fixed;
+  z-index: 1001;
   top: 0;
-  position: absolute;
-  border: 36px solid white;
-  user-select: none;
-  pointer-events: none;
-  background-color: var(--background-color);
-  z-index: -1;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--decorative-color);
 }
 
-/* ----- HOME PAGE - MAIN END ----- */
+.js .loading::after {
+  content: "";
+  position: fixed;
+  z-index: 1001;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0.4;
+  background-color: var(--main-black-color);
+}
+
+@keyframes loaderAnimation {
+  to {
+    opacity: 1;
+    transform: scale(0.5, 0.5, 1);
+  }
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+}
+
+.hidden {
+  position: absolute;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ----- HOME PAGE - GRID END ----- */

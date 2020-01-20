@@ -33,7 +33,7 @@
   class GridItem {
     constructor(el) {
       this.DOM = { el: el };
-      this.DOM.inner = Array.from(this.DOM.el.children);
+      this.DOM.inner = Array.from(this.MOD.el.children);
     }
     toggle(action) {
       this.DOM.inner.forEach(inner => {
@@ -92,6 +92,7 @@
 
   class Thumb extends GridItem {
     constructor(el) {
+      super();
       this.DOM.tilt = {};
       this.DOM.tilt.title = this.DOM.el.querySelector(".grid_item-title");
       this.DOM.tilt.number = this.DOM.el.querySelector(".grid_item-number");
@@ -231,52 +232,58 @@
     }
 
     hideProject() {
-      this.toggleProject('hide')
-    } 
+      this.toggleProject("hide");
+    }
 
     toggleProject(action) {
-      if(this.isAnimating) return;
+      if (this.isAnimating) return;
       this.isAnimating = true;
-      this.isGridHidden = action === 'show';
+      this.isGridHidden = action === "show";
       allowTilt = !this.isGridHidden;
       this.showRevealer().then(() => {
-        this.DOM.fullviewItems[this.current].style.opacity = this.isGridHidden ? 1 : 0;
+        this.DOM.fullviewItems[this.current].style.opacity = this.isGridHidden
+          ? 1
+          : 0;
         this.DOM.fullview.style.opacity = this.isGridHidden ? 1 : 0;
-        this.DOM.fullview.style.pointerEvents = this.isGridHidden ? 'auto' : 'none';
-        this.hideRevealer(this.isGridHidden ? 'up' : 'down')
+        this.DOM.fullview.style.pointerEvents = this.isGridHidden
+          ? "auto"
+          : "none";
+        this.hideRevealer(this.isGridHidden ? "up" : "down");
         this.isAnimating = false;
-      })
+      });
 
       this.movable.forEach(item => {
-        item.toggle(this.isGridHidden ? 'hide' : 'show')
-        item.DOM.el.style.pointerEvents = this.isGridHidden ? 'none' : 'auto';
-      })
+        item.toggle(this.isGridHidden ? "hide" : "show");
+        item.DOM.el.style.pointerEvents = this.isGridHidden ? "none" : "auto";
+      });
     }
 
     showRevealer() {
-      return this.toggleRevealer('show')
+      return this.toggleRevealer("show");
     }
 
     hideRevealer(dir) {
-      return this.toggleRevealer('hide', dir);
+      return this.toggleRevealer("hide", dir);
     }
 
     toggleRevealer(action, dir) {
       return new Promise((resolve, reject) => {
-        if(action === 'show') {
-          this.DOM.revealer.style.backgroundColor = this.movable[this.current].DOM.dataset.revealerColor
+        if (action === "show") {
+          this.DOM.revealer.style.backgroundColor = this.movable[
+            this.current
+          ].DOM.dataset.revealerColor;
         }
 
-        TweenMax.to( this.DOM.revealer, action === 'show' ? 1 : 1, {
-          ease: action === 'show' ? 'Quint.easeInOut' : 'Quint.easeOut',
-          y: action === 'show' ? '-100%' : dir === 'up' ? '-200%' : '0%',
+        TweenMax.to(this.DOM.revealer, action === "show" ? 1 : 1, {
+          ease: action === "show" ? "Quint.easeInOut" : "Quint.easeOut",
+          y: action === "show" ? "-100%" : dir === "up" ? "-200%" : "0%",
           onComplete: resolve
-        })
-      })
+        });
+      });
     }
   }
 
-  let winsize = {width: window.innerWidth, height: window.innerHeight};
+  let winsize = { width: window.innerWidth, height: window.innerHeight };
   let allowTilt = true;
   new Grid();
 }
