@@ -33,7 +33,7 @@
   class GridItem {
     constructor(el) {
       this.DOM = { el: el };
-      this.DOM.inner = Array.from(this.MOD.el.children);
+      this.DOM.inner = Array.from(this.DOM.el.children);
     }
     toggle(action) {
       this.DOM.inner.forEach(inner => {
@@ -44,7 +44,7 @@
           y:
             action === "hide"
               ? this.constructor.name === "Thumb"
-                ? -1 * winsize.heigh - 30
+                ? -1 * winsize.height - 30
                 : -1 * winsize.height - 30 + inner.OffsetHeight / 2
               : 0
         });
@@ -126,7 +126,7 @@
       };
       this.mouseleaveFn = () => {
         requestAnimationFrame(() => {
-          if (!enter || allowTilt) return;
+          if (!enter || !allowTilt) return;
           enter = false;
           clearTimeout(this.mouseTime);
           this.resetTilt();
@@ -150,6 +150,50 @@
         x: mousepos.x - bounds.left - docScrolls.left,
         y: mousepos.y - bounds.top - docScrolls.top
       };
+
+      for (let key in this.DOM.tilt) {
+        let t = this.tiltconfig[key].translation;
+        TweenMax.to(this.DOM.tilt[key], 1, {
+          x: ((t.x[1] - t.x[0]) / bounds.width) * relmousepos.x + t.x[0],
+          y: ((t.x[1] - t.x[0]) / bounds.height) * relmousepos.y + t.x[0]
+        });
+      }
+    }
+
+    resetTilt() {
+      for (let key in this.DOM.tilt) {
+        TweenMax.to(this.DOM.tilt[key], 2, {
+          x: 0,
+          y: 0
+        });
+      }
+    }
+  }
+
+  class Grid {
+    constructor() {
+      this.DOM = { grid: document.querySelector(".grid--thumbs") };
+      this.DOM.thumbs = Array.from(
+        this.DOM.grid.querySelectorAll(".grid_item:not(.grid_item--more)")
+      );
+      this.thumbs = [];
+      this.DOM.thumbs.forEach(thumb => this.thumbs.push(new Thumb(thumb)));
+
+      this.DOM.moreCtrl = this.DOM.grid.querySelector(".grid_item--more");
+      const more = new GridItem(this.DOM.moreCtrl);
+
+      this.movable = [...this.thumbs, more];
+
+      this.DOM.revealer = document.querySelector(".revealer");
+
+      this.DOM.fullview = document.querySelector(".fullview");
+      this.DOM.fullviewItems = this.DOM.fullview.querySelector(
+        ".fullview_item"
+      );
+
+      this.current = -1;
+
+      this.initEvents();
     }
   }
 }
