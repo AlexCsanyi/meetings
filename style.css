@@ -164,6 +164,10 @@ header::before {
 
 /* ----- MENU END ----- */
 /* ----- HOME PAGE - MAIN ----- */
+main {
+  position: relative;
+}
+
 .content {
   transform: translateX(0);
   transition: transform 0.6s cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -243,4 +247,126 @@ a {
   pointer-events: none;
 }
 
+.message {
+  position: relative;
+  z-index: 100;
+  padding: 1rem;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+/* Page Loader END */
+/* Icons */
+.icon {
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0 auto;
+  fill: currentColor;
+}
+
+.grid-thumbs {
+  display: none;
+}
+
+.grid-outer {
+  padding: 1.5rem;
+}
+
+.main-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.main-links {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0 1em 0 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.main-icon {
+  display: inline-block;
+  text-transform: lowercase;
+  text-align: left;
+}
+
+.theDreamDesigners {
+  display: inline-block;
+  text-transform: lowercase;
+  text-align: left;
+}
+
+.title-wrap {
+  padding: 2em 0;
+}
+
+.side {
+  font-size: 0.85rem;
+}
+
+.side_content {
+  display: block;
+  padding: 0 1rem 0 0;
+}
+
+.grid_item-title {
+  font-weight: normal;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.year {
+  font-size: 1.25rem;
+  display: block;
+}
+
+.year::before {
+  content: "___";
+  margin-right: 0.5rem;
+}
+
+.fullview_item {
+  background-size: cover;
+  background-position: 50% 50%;
+  padding: 80vh 1.5rem 1.5rem;
+  margin: 0 0 2rem 0;
+}
+
+.fullview_item-titlewrap {
+  padding: 1.5rem;
+  background: #d0d0d0;
+}
+
+.fullview_title {
+  display: none;
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+.fullview_item-number {
+  font-size: 1.5rem;
+  padding: 1.5rem 1.5rem 0 1.5rem;
+  background: #d0d0d0;
+  display: block;
+}
+
+.fullview_item-number::before {
+  content: "___";
+  margin-right: 0.5rem;
+}
+/* Icons END */
 /* ----- HOME PAGE - GRID END ----- */
