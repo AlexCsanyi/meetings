@@ -13,7 +13,7 @@
   const getMousePosition = e => {
     let posx = 0;
     let posy = 0;
-    if (!e) window.event;
+    if (!e) e = window.event;
     if (e.pageX || e.pageY) {
       posx = e.pageX;
       posy = e.posY;
@@ -33,7 +33,7 @@
   class GridItem {
     constructor(el) {
       this.DOM = { el: el };
-      this.DOM.inner = Array.from(this.MOD.el.children);
+      this.DOM.inner = Array.from(this.DOM.el.children);
     }
     toggle(action) {
       this.DOM.inner.forEach(inner => {
@@ -92,7 +92,7 @@
 
   class Thumb extends GridItem {
     constructor(el) {
-      super();
+      super(el);
       this.DOM.tilt = {};
       this.DOM.tilt.title = this.DOM.el.querySelector(".grid_item-title");
       this.DOM.tilt.number = this.DOM.el.querySelector(".grid_item-number");
@@ -135,7 +135,7 @@
       };
       this.DOM.el.addEventListener("mouseenter", this.mouseenterFn);
       this.DOM.el.addEventListener("mousemove", this.mousemoveFn);
-      this.DOM.addEventListener("mouseleave", this.mouseleaveFn);
+      this.DOM.el.addEventListener("mouseleave", this.mouseleaveFn);
     }
     tilt(ev) {
       if (!allowTilt) return;
@@ -156,7 +156,7 @@
         let t = this.tiltconfig[key].translation;
         TweenMax.to(this.DOM.tilt[key], 1, {
           x: ((t.x[1] - t.x[0]) / bounds.width) * relmousepos.x + t.x[0],
-          y: ((t.x[1] - t.x[0]) / bounds.height) * relmousepos.y + t.x[0]
+          y: ((t.y[1] - t.y[0]) / bounds.height) * relmousepos.y + t.y[0]
         });
       }
     }
@@ -271,7 +271,7 @@
         if (action === "show") {
           this.DOM.revealer.style.backgroundColor = this.movable[
             this.current
-          ].DOM.dataset.revealerColor;
+          ].DOM.el.dataset.revealerColor;
         }
 
         TweenMax.to(this.DOM.revealer, action === "show" ? 1 : 1, {
