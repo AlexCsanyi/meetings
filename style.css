@@ -501,8 +501,7 @@ a {
     border: 0;
     margin: 0;
     padding: 0;
-    cursor: pointer;
-    height: calc(12vw + 30px);
+    height: calc(12vh + 30px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -511,6 +510,7 @@ a {
     position: relative;
     width: 100%;
     pointer-events: auto;
+    cursor: pointer;
   }
 
   .grid_toggle:focus {
